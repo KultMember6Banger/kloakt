@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kloakt"
+version = "0.1.0"
+description = "Cloaked headless browser for AI agents — stealth TLS, smart extraction, SPA fallback"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [{name = "KultMember6Banger"}]
+keywords = ["mcp", "headless-browser", "web-scraping", "ai-agent", "stealth"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/KultMember6Banger/kloakt"
+Repository = "https://github.com/KultMember6Banger/kloakt"
+
+[project.scripts]
+kloakt-mcp = "mcp_server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kloakt.py", "mcp_server.py"]
