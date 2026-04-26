@@ -784,7 +784,7 @@ async fn run_extract(
         _ => serde_json::json!({}),
     };
     let pre_noscript = page.evaluate(
-        r#"Array.from(document.querySelectorAll('noscript')).map(function(n){return n.textContent||''}).filter(function(t){return t.length>50&&t.toLowerCase().indexOf('javascript')===-1&&t.toLowerCase().indexOf('enable')===-1}).join('\n\n')"#
+        r#"Array.from(document.querySelectorAll('noscript')).map(function(n){var t=n.textContent||'';t=t.replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();return t}).filter(function(t){return t.length>50&&!/javascript|enable|stylesheet|\.css|opacity|display\s*:/i.test(t)}).join('\n\n')"#
     );
     let pre_jsonld = page.evaluate(
         r#"Array.from(document.querySelectorAll('script[type="application/ld+json"]')).map(function(el){try{var d=JSON.parse(el.textContent);var p=[];if(d.name)p.push('**'+d.name+'**');if(d.description)p.push(d.description);if(d.articleBody)p.push(d.articleBody);return p.join('\n\n')}catch(e){return ''}}).filter(function(s){return s}).join('\n\n')"#
@@ -795,6 +795,9 @@ async fn run_extract(
         serde_json::Value::String(s) => s,
         _ => String::new(),
     };
+    let pre_body_text = page.evaluate(
+        r#"(document.body?document.body.innerText||'':'').replace(/\s+/g,' ').trim().substring(0,5000)"#
+    );
 
     let mut content = match format {
         ExtractFormat::Markdown => {
@@ -847,6 +850,13 @@ async fn run_extract(
         if let serde_json::Value::String(s) = pre_jsonld {
             if !s.trim().is_empty() {
                 parts.push(s.trim().to_string());
+            }
+        }
+
+        if let serde_json::Value::String(s) = pre_body_text {
+            let body = s.trim();
+            if body.len() > 100 {
+                parts.push(body.to_string());
             }
         }
 
