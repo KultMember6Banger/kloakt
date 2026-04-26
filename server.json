@@ -1,0 +1,17 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.kultmember6banger/kloakt",
+  "title": "Kloakt",
+  "description": "Cloaked headless browser MCP server for AI agents. Rust/V8 engine with stealth TLS fingerprinting, smart content extraction, and SPA fallback. Tools: kloakt_extract (URL → structured markdown/JSON) and kloakt_fetch (raw page access with JS evaluation).",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/KultMember6Banger/kloakt",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "transportType": "stdio",
+      "commandString": "python3 mcp_server.py"
+    }
+  ]
+}
