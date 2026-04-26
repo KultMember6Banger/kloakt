@@ -224,12 +224,41 @@ Fetch and render a single page.
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--dump` | `html` | Output: `html`, `text`, or `links` |
+| `--dump` | `html` | Output: `html`, `text`, `links`, or `markdown` |
 | `--eval` | — | JavaScript expression to evaluate |
 | `--wait-until` | `load` | Wait: `load`, `domcontentloaded`, `networkidle0` |
 | `--selector` | — | Wait for CSS selector |
 | `--stealth` | off | Anti-detection mode |
 | `--quiet` | off | Suppress banner |
+
+### `obscura extract <URL>`
+
+AI-agent-optimized content extraction. Returns clean markdown with optional metadata.
+
+```bash
+# Clean markdown, nav/header/footer stripped
+obscura extract https://example.com --main
+
+# Structured JSON with metadata (for programmatic use)
+obscura extract https://example.com --main --json
+
+# Plain text instead of markdown
+obscura extract https://example.com --format text --main
+
+# Wait for dynamic content
+obscura extract https://example.com --wait-until networkidle0 --selector ".content"
+```
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--format` | `markdown` | Output: `markdown`, `text`, or `links` |
+| `--main` | off | Strip nav, header, footer, sidebar before extraction |
+| `--json` | off | Structured JSON output with title, URL, content, meta tags |
+| `--stealth` | off | Anti-detection mode |
+| `--selector` | — | Wait for CSS selector before extracting |
+| `--wait-until` | `load` | Wait: `load`, `domcontentloaded`, `networkidle0` |
+
+JSON output includes Open Graph tags, meta description, canonical URL, and language.
 
 ### `obscura scrape <URL...>`
 
@@ -240,6 +269,23 @@ Scrape multiple URLs in parallel with worker processes.
 | `--concurrency` | `10` | Parallel workers |
 | `--eval` | — | JS expression per page |
 | `--format` | `json` | Output: `json` or `text` |
+
+## Python API
+
+```python
+from obscura import extract, fetch, scrape
+
+# Extract clean markdown (default: --main strips nav/header/footer)
+page = extract("https://example.com")
+print(page.title, page.content, page.meta)
+
+# Raw fetch
+html = fetch("https://example.com", dump="html")
+title = fetch("https://example.com", eval_js="document.title")
+
+# Parallel scrape
+results = scrape(["https://a.com", "https://b.com"], concurrency=5)
+```
 
 ## License
 
