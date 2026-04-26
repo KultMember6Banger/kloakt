@@ -8,7 +8,7 @@ use tokio::process::Command as TokioCommand;
 use tokio::time::{timeout, Duration};
 
 #[derive(Parser)]
-#[command(name = "obscura", about = "Obscura - A lightweight headless browser for web scraping and automation")]
+#[command(name = "kloakt", about = "Kloakt - Cloaked headless browser for AI agents")]
 struct Args {
     #[arg(short, long, global = true)]
     verbose: bool,
@@ -143,14 +143,14 @@ enum ExtractFormat {
 
 fn print_banner(port: u16) {
     println!(r#"
-   ____  _                              
-  / __ \| |                             
- | |  | | |__  ___  ___ _   _ _ __ __ _ 
- | |  | | '_ \/ __|/ __| | | | '__/ _` |
- | |__| | |_) \__ \ (__| |_| | | | (_| |
-  \____/|_.__/|___/\___|\__,_|_|  \__,_|
-                   
-  Headless Browser v0.1.0
+  _  ___             _    _
+ | |/ / |           | |  | |
+ | ' /| | ___   __ _| | _| |_
+ |  < | |/ _ \ / _` | |/ / __|
+ | . \| | (_) | (_| |   <| |_
+ |_|\_\_|\___/ \__,_|_|\_\\__|
+
+  Cloaked Headless Browser v0.2.0
   CDP server: ws://127.0.0.1:{}/devtools/browser
 "#, port);
 }

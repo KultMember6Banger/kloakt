@@ -1,4 +1,4 @@
-"""Obscura MCP server — exposes headless browser tools to AI agents.
+"""Kloakt MCP server — exposes cloaked headless browser tools to AI agents.
 
 Implements the Model Context Protocol (stdio JSON-RPC) so Claude Code
 subagents can call extract/fetch/scrape as native tools.
@@ -7,7 +7,7 @@ Usage:
     python3 mcp_server.py
 
 Add to .mcp.json or claude settings:
-    "obscura": {
+    "kloakt": {
         "command": "python3",
         "args": ["/home/kultmember6banger/ai-stack/obscura/mcp_server.py"]
     }
@@ -15,12 +15,12 @@ Add to .mcp.json or claude settings:
 
 import json
 import sys
-from obscura import extract, fetch, scrape
+from kloakt import extract, fetch, scrape
 
 
 TOOLS = [
     {
-        "name": "obscura_extract",
+        "name": "kloakt_extract",
         "description": (
             "Extract clean markdown content from a web page using a headless browser "
             "with full JavaScript rendering. Strips nav/header/footer by default. "
@@ -75,7 +75,7 @@ TOOLS = [
         },
     },
     {
-        "name": "obscura_fetch",
+        "name": "kloakt_fetch",
         "description": (
             "Low-level page fetch with JS rendering. Returns raw output as string. "
             "Supports HTML dump, text dump, link extraction, or arbitrary JS evaluation."
@@ -122,7 +122,7 @@ def handle_request(request: dict) -> dict:
                 "protocolVersion": "2024-11-05",
                 "capabilities": {"tools": {}},
                 "serverInfo": {
-                    "name": "obscura",
+                    "name": "kloakt",
                     "version": "0.1.0",
                 },
             },
@@ -143,7 +143,7 @@ def handle_request(request: dict) -> dict:
         args = params.get("arguments", {})
 
         try:
-            if tool_name == "obscura_extract":
+            if tool_name == "kloakt_extract":
                 page = extract(
                     url=args["url"],
                     format=args.get("format", "markdown"),
@@ -169,7 +169,7 @@ def handle_request(request: dict) -> dict:
                     },
                 }
 
-            elif tool_name == "obscura_fetch":
+            elif tool_name == "kloakt_fetch":
                 result = fetch(
                     url=args["url"],
                     dump=args.get("dump", "text"),
