@@ -7,6 +7,8 @@
 
 ---
 
+<!-- mcp-name: io.github.KultMember6Banger/kloakt -->
+
 Kloakt is a headless browser built for AI agents. It runs JavaScript via V8, extracts clean markdown from any page (including SPAs), and exposes tools via MCP for Claude Code and other AI systems.
 
 ### Why Kloakt?

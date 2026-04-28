@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kloakt"
-version = "0.1.0"
+version = "0.1.2"
 description = "Cloaked headless browser for AI agents — stealth TLS, smart extraction, SPA fallback"
 readme = "README.md"
 license = {text = "MIT"}
@@ -28,3 +28,6 @@ kloakt-mcp = "mcp_server:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["kloakt.py", "mcp_server.py"]
+
+[tool.hatch.build.targets.sdist]
+include = ["kloakt.py", "mcp_server.py", "pyproject.toml", "README.md", "server.json", "AGENTS.md"]

@@ -1,9 +1,9 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.kultmember6banger/kloakt",
+  "name": "io.github.KultMember6Banger/kloakt",
   "title": "Kloakt",
   "description": "Cloaked headless browser for AI agents — stealth TLS, smart extraction, SPA fallback",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "repository": {
     "url": "https://github.com/KultMember6Banger/kloakt",
     "source": "github"
@@ -12,7 +12,7 @@
     {
       "registryType": "pypi",
       "identifier": "kloakt",
-      "version": "0.1.0",
+      "version": "0.1.2",
       "transport": {
         "type": "stdio"
       }
